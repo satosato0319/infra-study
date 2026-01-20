@@ -35,13 +35,38 @@ sudo nano /var/www/html/index.html
 <h1>Hello, this is test.</h1>
 ```
 - ブラウザでhttp://localhostにアクセス
-- アクセスログ、エラーログを確認し、ステータスコード200の為、正常に動作していることを確認
+- アクセスログ、エラーログを確認し、ステータスコード200の場合、正常に動作していることとする
 ```bash
 tail -f /var/log/nginx/access.log
 tail -f /var/log/nginx/error.log
 ```
 
 ## 詰まった点
-- 
-## 切り分け
+※ 検証の為、nginx関連ファイルを削除し、2回目の構築を実施した。
+- 1. nginx関連ファイルを削除後、nginxを再インストールしたが起動失敗
+## 原因究明
+- 1. 2回目構築時、nginx start失敗
+
+- インストール後、以下を実行したがconfファイルが存在しないことを確認
+```bash
+nginx -t
+```
+- また、/etc/nginx/nginx.confの存在を確認したが、ファイルが存在しないことを確認
+```bash
+ls /etc/nginx/nginx.conf
+```
+- nginxは設定ファイルを読み込んで起動する為、設定ファイル不在によるエラーと断定
+
+## 対応
+### 1. nginx設定ファイル不在への対応
+
+- 再インストールしたが設定ファイルが復元しなかった
+- その為、 'mkdir'でフォルダを作成し、その配下にファイルを作成
+- 最低限の設定を、インターネットを参考にして記述
+- 以下を実行し正常に起動したことを確認
+```bash
+nginx -t
+sudo systemctl start nginx
+```
+  
 ## 学んだこと
