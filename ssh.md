@@ -57,7 +57,7 @@ sudo nano /etc/ssh/sshd_config
 ```bash
 ls ~/.ssh
 ```
-- ログインできないため、 ssh-copy-id が利用できない為、手動で公開鍵を authorized_keysに追加する必要があると判断
+- パスワード認証が無効になっており、ssh-copy-id が利用できなかった為、手動で公開鍵を authorized_keysに追加する必要があると判断
 ## 対応
 - 公開鍵を手動で authorized_keys にコピー
 ```bash
