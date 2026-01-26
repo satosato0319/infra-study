@@ -1,1 +1,1 @@
-# infra-study
+# infrastudy
