@@ -43,10 +43,34 @@ PubkeyAuthentication yes
 sudo systemctl reload ssh
 ```
 ## 詰まった点
-- 
-## 注意した点
-- 
-- 
+- ssh-copy-id を使用して、公開鍵を authorized_keys にコピーしようとしたが、失敗
+## 原因究明
+- コピーを試みた際、以下のログを確認
+```bash
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+```
+- 上記ログから、ログインできなかったと判断し、まず設定ファイルを確認した結果、パスワード認証が無効化されていた
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+- また、 authorized_keys があるかも確認した結果、存在しない
+```bash
+ls ~/.ssh
+```
+- ログインできないため、 ssh-copy-id が利用できない為、手動で公開鍵を authorized_keysに追加する必要があると判断
+## 対応
+- 公開鍵を手動で authorized_keys にコピー
+```bash
+cat ~/.ssh/id_ed25519.pub >> /home/ユーザー名/.ssh/authorized_keys
+```
+- 上記フォルダの権限を自分のみ読み書きができるように設定
+```bash
+chmod 600 /home/ユーザー名/.ssh/authorized_keys
+```
+- 設定後、ログインできるか確認
+```bash
+ssh ユーザー名@localhost
+```
   
 ## 学んだこと
-- 
+- パスワード認証は、鍵認証でログインできることを確認できてから無効化する必要がある
