@@ -44,12 +44,16 @@ tail -f /var/log/nginx/error.log
 ## 詰まった点
 ※ 検証の為、nginx関連ファイルを削除し、2回目の構築を実施した。
 ### 1.nginx関連ファイルを削除後、nginxを再インストールしたが起動失敗
+### 2. インストール後、起動前にconfファイルが正常か確認するため、 'nginx-t' を実行したが以下エラーが起き、読み込み失敗
+```bash
+[emerg] 1937#1937: open() "/run/nginx.pid" failed (13: Permission denied)
+```
 ## 原因究明
 ### 1. 2回目構築時、nginx start失敗
 
 - インストール後、以下を実行したがconfファイルが存在しないことを確認
 ```bash
-nginx -t
+sudo nginx -t
 ```
 - また、/etc/nginx/nginx.confの存在を確認したが、ファイルが存在しないことを確認
 ```bash
@@ -57,6 +61,11 @@ ls /etc/nginx/nginx.conf
 ```
 - nginxは設定ファイルを読み込んで起動する為、設定ファイル不在によるエラーと断定
 
+### 2. 'nginx -t' 実行したが失敗
+
+- 上記エラーからpidファイルが開けないことが判明
+- また、'Permission denied' から権限が足りないと判断
+  
 ## 対応
 ### 1. nginx設定ファイル不在への対応
 
