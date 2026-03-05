@@ -2,13 +2,27 @@
 
 ## 概要
 
-このリポジトリでは、nginx（リバースプロキシ）+ Flaskの最小限の構成で、ブラウザから nginx の'access.log'/'error.log'をボタン一つで確認できるWebアプリを作成した。ログは読み取り専用で表示する。
+WSL(Ubuntu)上で、 nginx / SSH / UFW を構築し、再現手順とその構築で詰まった点や原因切り分けをMarkdownにまとめたリポジトリ。
 
-あわせて、UFW、SSHを有効化し、運用を意識した基本的なセキュリティ設定を行った。また、各コンポーネントの設定手順や詰まった点、切り分け手順をMarkdownファイルにまとめている。
+## 環境
+- Windows : Windows 11 Home
+- WSL : Ubuntu 24.04
+- nginx : 1.24.0
+- Python : 3.12.3
+
+## 目的
+- nginxを80番ポートで動かし、ログ（access/error)を確認できる状態にする
+- SSHを鍵認証でログインできるようにし、UFWでポート制限をし、最低限のセキュリティ設定を行う
+- Flaskで nginx の access.log / error.log をブラウザからボタン一つで確認できるサイトを作成する。（予定）
+- nginx をリバースプロキシとして動かし、Flaskで上記サイトにアクセスできるようにする。（予定）
+- systemdを有効化し、運用を前提とした構成にする。（予定）
+
+## 構成
+ここに構成図を置く
 
 ## ドキュメント
 - nginx: docs/nginx.md
-- SSH: docs/ssh.md
-- UFW: docs/ufw.md
-- API: docs/api.md
+- ssh: docs/ssh.md
+- ufw: docs/ufw.md
+- api: docs/api.md（予定）
 
