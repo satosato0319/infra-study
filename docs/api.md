@@ -2,20 +2,41 @@
 
 ## やったこと
 ### pythonを動かすための仮想環境を構築
-- フォルダを作成
+- 今回のプロジェクトフォルダを作成
+```bash
+mkdir -p ~/flask-btn
+cd ~/flask-btn
+```
+- venv機能をインストールし、仮想環境を作成
 ```bash
 sudo apt update
-sudo ap
+sudo apt install python3-venv
+python3 -m venv .venv
 ```
-- wsl再起動時、自動起動に設定
+- 仮想環境を有効化し、Flaskをインストール
 ```bash
-sudo systemctl enable nginx
+source .venv/bin/activate
+pip install flask
 ```
-- nginxの状態確認(active (running)を確認)
-```bash
-sudo systemctl status nginx
-```
+- まずwebサーバとして動作するか確認する為、AIを参考にしながら最小構成のapp.pyを用意
+```Python
+from flask import Flask
 
+app = Flask(__name__)
+
+@app.get("/")
+def index():
+    return "flask success"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
+```
+- 上記コードを実行し、正常に動作してるか確認。flask successが返れば成功。
+```bash
+python app.py
+curl http://127.0.0.1:5000/
+```
+続きここから
 ### HTML表示確認
 - htmlフォルダ確認(index.nginx-debian.htmlのみを確認)
 ```bash
