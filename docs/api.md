@@ -1,7 +1,7 @@
 ※ 実行環境については README.md に記載
 
 ## やったこと
-### pythonを動かすための仮想環境を構築
+### pythonを動かすための仮想環境を構築し、Flaskで動作確認
 - 今回のプロジェクトフォルダを作成
 ```bash
 mkdir -p ~/flask-btn
@@ -36,21 +36,52 @@ if __name__ == "__main__":
 python app.py
 curl http://127.0.0.1:5000/
 ```
-続きここから
-### HTML表示確認
-- htmlフォルダ確認(index.nginx-debian.htmlのみを確認)
+
+## HTMLを返してボタン表示
+- templatesフォルダを作成
 ```bash
-ls /var/www/html
+mkdir -p templates
 ```
-- htmlファイル作成
+- 上記フォルダ内にindex.htmlを作成し、まずはボタンを一つ表示するコードを用意
+  ボタンを押すことで、 http://127.0.0.1:5000/run 宛に、Flaskへ POST リクエストを送る。
 ```bash
-sudo nano /var/www/html/index.html
+sudo nano templates/index.html
 ```
-- 以下をファイル内に記述(ctrl+oで保存、ctrl+xで終了)
 ```html
-<h1>Hello, this is test.</h1>
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Flask Button</title>
+</head>
+<body>
+  <h1>ボタンテスト</h1>
+
+  <form method="post" action="/run">
+    <button type="submit">押す</button>
+  </form>
+</body>
+</html>
 ```
-- ブラウザでhttp://localhostにアクセス
+- app.pyをHTMLを返すように変更(追加コードのみ記載）
+  render_template("index.html")により、GET リクエストを受けたら、 templates フォルダの index.html を読み込み、ブラウザへ返すようにした。
+  また、 /run への POST をリクエストを受けたら "OK (check server log)" を返すようにした。
+```bash
+nano app.py
+```
+```python
+from flask import Flask, render_template
+
+@app.get("/")
+def index():
+    return render_template("index.html")
+
+@app.post("/run")
+def run():
+    return "OK (check server log)"
+```
+- ブラウザでhttp://localhostにアクセスし、正常に動作することを確認
+
 - アクセスログ、エラーログを確認し、ステータスコード200の場合、正常に動作していることとする
 ```bash
 tail -f /var/log/nginx/access.log
