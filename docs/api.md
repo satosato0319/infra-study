@@ -80,13 +80,7 @@ def index():
 def run():
     return "OK (check server log)"
 ```
-- ブラウザでhttp://localhostにアクセスし、正常に動作することを確認
-
-- アクセスログ、エラーログを確認し、ステータスコード200の場合、正常に動作していることとする
-```bash
-tail -f /var/log/nginx/access.log
-tail -f /var/log/nginx/error.log
-```
+- ブラウザでhttp://localhost にアクセスし、正常に動作することを確認
 
 ## 詰まった点
 ※ 検証の為、nginx関連ファイルを削除し、2回目の構築を実施した。
