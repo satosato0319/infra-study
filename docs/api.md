@@ -18,7 +18,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install flask
 ```
-- まずwebサーバとして動作するか確認する為、AIを参考にしながら最小構成のapp.pyを用意
+- まずWebサーバとして動作するか確認するため、AIを参考にしながら最小構成のapp.pyを用意
 ```Python
 from flask import Flask
 
@@ -42,7 +42,7 @@ curl http://127.0.0.1:5000/
 ```bash
 mkdir -p templates
 ```
-- 上記フォルダ内にindex.htmlを作成し、まずはボタンを一つ表示するコードを用意
+- 上記フォルダ内にindex.htmlを作成し、まずはボタンを1つ表示するコードを用意
   ボタンを押すことで、 http://127.0.0.1:5000/run 宛に、Flaskへ POST リクエストを送る。
 ```bash
 sudo nano templates/index.html
@@ -65,7 +65,7 @@ sudo nano templates/index.html
 ```
 - app.pyをHTMLを返すように変更(追加コードのみ記載）
   render_template("index.html")により、GET リクエストを受けたら、 templates フォルダの index.html を読み込み、ブラウザへ返すようにした。
-  また、 /run への POST をリクエストを受けたら "OK (check server log)" を返すようにした。
+  また、 /run への POST リクエストを受けたら "OK (check server log)" を返すようにした。
 ```bash
 nano app.py
 ```
