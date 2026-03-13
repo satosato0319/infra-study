@@ -84,11 +84,11 @@ def run():
 
 ## ボタンを追加し、 nginxの access.log/error.log を確認できるようにする
 - index.htmlを修正し、access.log ボタンを押下時に /logs/access、error.log ボタンを押下時に /logs/error に get リクエストを送るようにした。
-  コードは [`templates/index.html`](../templates/index.html) を参照
+- コードは [`templates/index.html`](../templates/index.html) を参照
 
 ## ログへのパスを追加し、リクエストを受けたら log を読み取って返すようにする
 - app.pyを修正し、リクエストを受けたら、/var/log/nginx/access.log、/var/log/nginx/error.log の末尾200行を読み取り。整えて返すようにした。
-  コードは [`app.py`](../app.py) を参照
+- コードは [`app.py`](../app.py) を参照
 
 ## プロキシ
 
