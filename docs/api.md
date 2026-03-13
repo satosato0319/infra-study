@@ -87,7 +87,7 @@ def run():
 - コードは [`templates/index.html`](../templates/index.html) を参照
 
 ## ログへのパスを追加し、リクエストを受けたら log を読み取って返すようにする
-- app.pyを修正し、リクエストを受けたら、/var/log/nginx/access.log、/var/log/nginx/error.log の末尾200行を読み取り。整えて返すようにした。
+- app.pyを修正し、リクエストを受けたら/var/log/nginx/access.log、/var/log/nginx/error.log の末尾200行を読み取り。整えて返すようにした。
 - コードは [`app.py`](../app.py) を参照
 
 ## プロキシ
