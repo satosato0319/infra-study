@@ -83,15 +83,12 @@ def run():
 - ブラウザで http://127.0.0.1:5000/ にアクセスし、正常に動作することを確認
 
 ## ボタンを追加し、 nginxの access.log/error.log を確認できるようにする
-- index.htmlを修正
-  access.log ボタンを押すことで、app.py の /logs/access に POST リクエストを送る。
-  error.log ボタンを押すことで、app.py の /logs/errpr に POST リクエストを送る。
-  コードは infra-study/templates/index.html を参照
+- index.htmlを修正し、access.log ボタンを押下時に /logs/access、error.log ボタンを押下時に /logs/error に get リクエストを送るようにした。
+  コードは [`templates/index.html`](../templates/index.html) を参照
 
 ## ログへのパスを追加し、リクエストを受けたら log を読み取って返すようにする
-- app.pyを修正
-  リクエストを受け取ったら、/var/log/nginx/access.log、/error.log の文末から200行を書式を整えて返すようにした。
-  コードは infra-study/app.py を参照
+- app.pyを修正し、リクエストを受けたら、/var/log/nginx/access.log、/var/log/nginx/error.log の末尾200行を読み取り。整えて返すようにした。
+  コードは [`app.py`](../app.py) を参照
 
 ## プロキシ
 
