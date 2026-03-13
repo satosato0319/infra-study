@@ -63,7 +63,7 @@ sudo nano templates/index.html
 </body>
 </html>
 ```
-- app.pyをHTMLを返すように変更(追加コードのみ記載）
+- app.pyを、HTMLを返すように変更(追加コードのみ記載）
   render_template("index.html")により、GET リクエストを受けたら、 templates フォルダの index.html を読み込み、ブラウザへ返すようにした。
   また、 /run への POST リクエストを受けたら "OK (check server log)" を返すようにした。
 ```bash
@@ -80,8 +80,23 @@ def index():
 def run():
     return "OK (check server log)"
 ```
-- ブラウザでhttp://localhost にアクセスし、正常に動作することを確認
+- ブラウザで http://127.0.0.1:5000/ にアクセスし、正常に動作することを確認
 
+## ボタンを追加し、 nginxの access.log/error.log を確認できるようにする
+- index.htmlを修正
+  access.log ボタンを押すことで、app.py の /logs/access に POST リクエストを送る。
+  error.log ボタンを押すことで、app.py の /logs/errpr に POST リクエストを送る。
+  コードは infra-study/templates/index.html を参照
+
+## ログへのパスを追加し、リクエストを受けたら log を読み取って返すようにする
+- app.pyを修正
+  リクエストを受け取ったら、/var/log/nginx/access.log、/error.log の文末から200行を書式を整えて返すようにした。
+  コードは infra-study/app.py を参照
+
+## プロキシ
+
+## gunicorn
+## systemd
 ## 詰まった点
 ※ 検証の為、nginx関連ファイルを削除し、2回目の構築を実施した。
 ### 1.nginx関連ファイルを削除後、nginxを再インストールしたが起動失敗
