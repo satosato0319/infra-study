@@ -40,6 +40,17 @@ sudo nano /var/www/html/index.html
 tail -f /var/log/nginx/access.log
 tail -f /var/log/nginx/error.log
 ```
+## リバースプロキシのコード
+- 受け取ったリクエストを8000番ポートで待ち受けている gunicorn に転送するコードを以下に記載
+- `proxy_set_header` 以降のコードは nginx に転送する時に、アクセスしたホスト名やIPアドレス、プロトコル情報も一緒に渡すことができ、それによりアプリ側でその情報を使用したりすることができる。
+```bash
+location /api {
+                proxy_pass http://127.0.0.1:8000/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+```
 
 ## 詰まった点
 ※ 検証の為、nginx関連ファイルを削除し、2回目の構築を実施した。
