@@ -3,6 +3,7 @@
 ## 概要
 
 WSL(Ubuntu)上で、 nginx / SSH / UFW を構築し、再現手順とその構築で詰まった点や原因切り分けをMarkdownにまとめたリポジトリ。
+また、ブラウザでアクセスし、ボタンを押すことで nginx のログを確認できるアプリを作成し、リバースプロキシや gunicorn、 systemd の動作原理、通信の流れを理解する。
 
 ## 環境
 - Windows : Windows 11 Home
