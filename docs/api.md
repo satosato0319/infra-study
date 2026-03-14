@@ -37,7 +37,7 @@ python app.py
 curl http://127.0.0.1:5000/
 ```
 
-## HTML を返してボタン表示
+### HTML を返してボタン表示
 - `templates` フォルダを作成
 ```bash
 mkdir -p templates
@@ -82,15 +82,15 @@ def run():
 ```
 - ブラウザで http://127.0.0.1:5000/ にアクセスし、正常に動作することを確認
 
-## ボタンを追加し、 `nginx` の `access.log`/`error.log` を確認できるようにする
+### ボタンを追加し、 `nginx` の `access.log`/`error.log` を確認できるようにする
 - `index.html` を修正し、`access.log` ボタンを押下時に `/logs/access`、`error.log` ボタンを押下時に `/logs/error` に `GET` リクエストを送るようにした。
 - コードは [`templates/index.html`](../templates/index.html) を参照
 
-## ログへのパスを追加し、リクエストを受けたらログを読み取って返すようにする
+### ログへのパスを追加し、リクエストを受けたらログを読み取って返すようにする
 - `app.py` を修正し、リクエストを受けたら `/var/log/nginx/access.log` と `/var/log/nginx/error.log` の末尾200行を読み取り、整えて返すようにした。
 - コードは [`app.py`](../app.py) を参照
 
-## `nginx` に `/api/` をリバースプロキシするよう設定する
+### `nginx` に `/api/` をリバースプロキシするよう設定する
 - 以下コマンドで `nginx` の設定ファイルを開き、 `location /api` にリバースプロキシを設定する。
   転送先は 8000番ポートにする
   コードは [`nginx.md`](./nginx.md) を参照
@@ -98,7 +98,7 @@ def run():
 nano /etc/nginx/sites-available/default
 ```
 
-## gunicorn をインストールし、8000番ポートで起動する
+### gunicorn をインストールし、8000番ポートで起動する
 - `gunicorn` を仮想環境内にインストールし、8000番ポートで待ち受けるように起動
 ```bash
 pip install gunicorn
@@ -110,7 +110,7 @@ curl -I http://127.0.0.1:8000/
 curl -I http://127.0.0.1:8000/logs/access
 ```
 
-## systemd で gunicorn をサービス化する
+### systemd で gunicorn をサービス化する
 - まず `systemd` が 動いているか確認（`systemd` と出たら動作している)
 ```bash
 ps -p 1 -o comm=
