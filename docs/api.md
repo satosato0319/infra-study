@@ -147,7 +147,7 @@ sudo systemctl status flask-logviewer
 ```
 
 ## 詰まった点
-### 1.nginx関連ファイルを削除後、nginxを再インストールしたが起動失敗
+### 1. `python3 -m venv .venv` で仮想環境を作成しよ
 ### 2. インストール後、起動前にconfファイルが正常か確認するため、 'nginx-t' を実行したが以下エラーが起き、読み込み失敗
 ```bash
 [emerg] 1937#1937: open() "/run/nginx.pid" failed (13: Permission denied)
