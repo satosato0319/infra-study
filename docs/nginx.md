@@ -52,4 +52,5 @@ location /api {
                 proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
-## ※詰まった点、原因究明、対応、学んだことは troubleshooting.mdに記載
+## ※詰まった点、原因究明、対応、学んだこと
+### [`troubleshooting.md`](./troubleshooting.md) に記載
