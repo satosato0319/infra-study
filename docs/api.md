@@ -1,7 +1,7 @@
 ※ 実行環境については README.md に記載
 
 ## やったこと
-### `Python` を動かすための仮想環境を構築し、Flask で動作確認
+### Python を動かすための仮想環境を構築し、Flask で動作確認
 - 今回のプロジェクトフォルダを作成
 ```bash
 mkdir -p ~/flask-btn
@@ -18,8 +18,8 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install flask
 ```
-- まずWebサーバとして動作するか確認するため、AIを参考にしながら最小構成の app.py を用意
-```Python
+- まず Webサーバとして動作するか確認するため、AIを参考にしながら最小構成の `app.py` を用意
+```python
 from flask import Flask
 
 app = Flask(__name__)
@@ -31,18 +31,18 @@ def index():
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 ```
-- 上記コードを実行し、正常に動作してるか確認。flask success が返れば成功。
+- 上記コードを実行し、正常に動作してるか確認。`flask success` が返れば成功。
 ```bash
 python app.py
 curl http://127.0.0.1:5000/
 ```
 
 ## HTML を返してボタン表示
-- templates フォルダを作成
+- `templates` フォルダを作成
 ```bash
 mkdir -p templates
 ```
-- 上記フォルダ内に index.html を作成し、まずはボタンを1つ表示するコードを用意
+- 上記フォルダ内に `index.html` を作成し、まずはボタンを1つ表示するコードを用意
   ボタンを押すことで、 http://127.0.0.1:5000/run 宛に、Flask へ POST リクエストを送る。
 ```bash
 sudo nano templates/index.html
@@ -63,9 +63,9 @@ sudo nano templates/index.html
 </body>
 </html>
 ```
-- app.py を、HTML を返すように変更(追加コードのみ記載）
-  render_template("index.html") により、GET リクエストを受けたら、 templates フォルダの index.html を読み込み、ブラウザへ返すようにした。
-  また、 /run への POST リクエストを受けたら "OK (check server log)" を返すようにした。
+- `app.py` を、HTML を返すように変更(追加コードのみ記載）
+  `render_template("index.html")` により、`GET` リクエストを受けたら、 `templates` フォルダの `index.html` を読み込み、ブラウザへ返すようにした。
+  また、 `/run` への `POST` リクエストを受けたら `OK (check server log)` を返すようにした。
 ```bash
 nano app.py
 ```
@@ -82,16 +82,16 @@ def run():
 ```
 - ブラウザで http://127.0.0.1:5000/ にアクセスし、正常に動作することを確認
 
-## ボタンを追加し、 nginx の access.log/error.log を確認できるようにする
-- index.htmlを修正し、access.log ボタンを押下時に /logs/access、error.log ボタンを押下時に /logs/error に GET リクエストを送るようにした。
+## ボタンを追加し、 `nginx` の `access.log`/`error.log` を確認できるようにする
+- `index.html` を修正し、`access.log` ボタンを押下時に `/logs/access`、`error.log` ボタンを押下時に `/logs/error` に `GET` リクエストを送るようにした。
 - コードは [`templates/index.html`](../templates/index.html) を参照
 
 ## ログへのパスを追加し、リクエストを受けたらログを読み取って返すようにする
-- app.py を修正し、リクエストを受けたら /var/log/nginx/access.logと /var/log/nginx/error.log の末尾200行を読み取り、整えて返すようにした。
+- `app.py` を修正し、リクエストを受けたら `/var/log/nginx/access.log` と `/var/log/nginx/error.log` の末尾200行を読み取り、整えて返すようにした。
 - コードは [`app.py`](../app.py) を参照
 
-## nginx に /api/ をリバースプロキシするよう設定する
-- 以下コマンドで nginx の設定ファイル開き、 location /api にリバースプロキシを設定する。
+## `nginx` に `/api/` をリバースプロキシするよう設定する
+- 以下コマンドで `nginx` の設定ファイルを開き、 `location /api` にリバースプロキシを設定する。
   転送先は 8000番ポートにする
   コードは [`nginx.md`](./nginx.md) を参照
 ```bash
@@ -99,24 +99,24 @@ nano /etc/nginx/sites-available/default
 ```
 
 ## gunicorn をインストールし、8000番ポートで起動する
-- gunicorn を仮想環境内にインストールし、8000番ポートで待ち受けるように起動
+- `gunicorn` を仮想環境内にインストールし、8000番ポートで待ち受けるように起動
 ```bash
 pip install gunicorn
 gunicorn -b 127.0.0.1:8000 app:app
 ```
-- 以下コマンドで gunicorn と疎通確認。(200が表示されれば成功)
+- 以下コマンドで gunicorn と疎通確認を実施。(`200 OK` が表示されれば成功)
 ```bash
 curl -I http://127.0.0.1:8000/
 curl -I http://127.0.0.1:8000/logs/access
 ```
 
-## systemd を gunicorn をサービス化する
-- まず systemd が 動いているか確認（systemdと出たら動作している)
+## systemd で gunicorn をサービス化する
+- まず `systemd` が 動いているか確認（`systemd` と出たら動作している)
 ```bash
 ps -p 1 -o comm=
 ```
-- gunicorn が起動しているターミナルで Ctrl + C で停止
-- systemd のサービスファイルを作成し、以下コードを追加
+- `gunicorn` が起動しているターミナルで Ctrl + C で停止
+- `systemd` のサービスファイルを作成し、以下コードを追加
 ```bash
 sudo nano /etc/systemd/system/flask-logviewer.service
 ```
