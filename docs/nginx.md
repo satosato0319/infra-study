@@ -43,7 +43,7 @@ tail -f /var/log/nginx/error.log
 ## リバースプロキシのコード
 - 受け取ったリクエストを8000番ポートで待ち受けている gunicorn に転送するコードを以下に記載
 - `proxy_set_header` 以降のコードは nginx に転送する時に、アクセスしたホスト名やIPアドレス、プロトコル情報も一緒に渡すことができ、それによりアプリ側でその情報を使用したりすることができる。
-```bash
+```ini
 location /api {
                 proxy_pass http://127.0.0.1:8000/;
                 proxy_set_header Host $host;
