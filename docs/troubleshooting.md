@@ -4,9 +4,9 @@
 ## 詰まった点
 ※ 検証の為、nginx 関連ファイルを削除し、2回目の構築を実施した。
 
-### 1.nginx 関連ファイルを削除後、nginx を再インストールしたが起動に失敗した。
+### 1つ目 nginx 関連ファイルを削除後、nginx を再インストールしたが起動に失敗した。
 
-### 2.インストール後、起動前に設定ファイルが正常か確認するため、 'nginx -t' を実行したが以下エラーが起き、読み込みに失敗した。
+### 2つ目 インストール後、起動前に設定ファイルが正常か確認するため、 'nginx -t' を実行したが以下エラーが起き、読み込みに失敗した。
 ```bash
 [emerg] 1937#1937: open() "/run/nginx.pid" failed (13: Permission denied)
 ```
@@ -98,7 +98,7 @@ ssh ユーザー名@localhost
 # api
 ## 詰まった点
 ### 1. `python3 -m venv .venv` を実行しようしたが、`ensurepip is not available` とエラーコードが表示され、仮想環境作成に失敗した。
-### 2. `render_temlate("index.html")` 実行時に `index.html` が見つからず、画面表示に失敗した。
+### 2. `render_template("index.html")` 実行時に `index.html` が見つからず、画面表示に失敗した。
 ## 確認したこと
 ### 1. 仮想環境作成失敗
 - エラーコードから `python3-venv` をインストールする必要があることを確認した
@@ -109,7 +109,7 @@ ssh ユーザー名@localhost
 - 以下コマンドで  `python3-venv` をインストールした
 ```bash
 sudo apt update
-sudo apt install python3.12-venv
+sudo apt install python3-venv
 ```
 ### 2. index.html 不在
 -  `templates/intex.html` を `templates/index.html` に名前を修正した
@@ -118,4 +118,4 @@ sudo apt install python3.12-venv
 - ubuntu では 最低限の機能しか用意されていないため、仮想環境作成用のパッケージをインストールする必要がある。
 
 ### 2. index.html 不在
-- Flaskは `render_temlate("index.html")` で指定したファイル名を探すため、ファイル名のスペルミスに注意する。
+- Flaskは `render_template("index.html")` で指定したファイル名を探すため、ファイル名のスペルミスに注意する。
